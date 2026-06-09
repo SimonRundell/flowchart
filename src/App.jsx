@@ -3,6 +3,7 @@ import Palette from './components/Palette';
 import Toolbar from './components/Toolbar';
 import Canvas from './components/Canvas';
 import Modal from './components/Modal';
+import LearningDrawer from './components/LearningDrawer';
 import CMFloatAd from './CMFloatAd';
 import { NODE_DEFAULTS, clientToSVG, nearestPort, getPortPos } from './utils/geometry';
 import { exportJSON, importJSON, printDiagram, exportSVG } from './utils/fileUtils';
@@ -27,6 +28,7 @@ export default function App() {
   const [panning, setPanning]         = useState(null);   // { startClient, origVP }
   const [editingText, setEditingText] = useState(null);   // { id, type, value, fontSize }
   const [modal, setModal] = useState(null);               // { title, message, confirmLabel, cancelLabel, onConfirm, onCancel }
+  const [learningOpen, setLearningOpen] = useState(false);
 
   const showAlert = useCallback((title, message) => {
     setModal({ title, message, confirmLabel: 'OK', onConfirm: () => setModal(null) });
@@ -324,6 +326,7 @@ export default function App() {
           onEditingTextCommit={handleEditingTextCommit}
         />
       </div>
+      <LearningDrawer open={learningOpen} onToggle={() => setLearningOpen(o => !o)} />
       <CMFloatAd color="black"/>
     </div>
     {modal && (
